@@ -1,14 +1,15 @@
 # Submission: Papertrail (Ajaia AI-Native Full Stack Developer assessment)
 
-**Candidate:** Abdul Raheem
+**Candidate:** Abdul Rahim
 
 ## Links
 
 | Item | Link |
 | --- | --- |
-| Live application | **[ADD VERCEL URL HERE]** |
-| Walkthrough video | **[ADD LOOM OR YOUTUBE URL HERE]** (also in [`WALKTHROUGH_URL.txt`](./WALKTHROUGH_URL.txt)) |
-| Google Drive folder | **[ADD GOOGLE DRIVE FOLDER URL HERE]** |
+| Live application | [papertail-wea4.vercel.app](https://papertail-wea4.vercel.app) |
+| Source repository | [github.com/rahimxai/papertail](https://github.com/rahimxai/papertail) (private; access on request) |
+| Walkthrough video | [Loom walkthrough](https://www.loom.com/share/803399d5b5cd49568b211fad03b38eb9) (also in [`WALKTHROUGH_URL.txt`](./WALKTHROUGH_URL.txt)) |
+| Google Drive folder | Shared in the submission email (this file is included in that folder) |
 
 ## Demo credentials
 
@@ -29,7 +30,7 @@ Password for every account: **`papertrail-demo`**. The sign-in page also has one
 | ☑ Architecture note | [`ARCHITECTURE.md`](./ARCHITECTURE.md) | System design, data model, security, tradeoffs (with Mermaid diagrams) |
 | ☑ AI workflow note | [`AI_WORKFLOW.md`](./AI_WORKFLOW.md) | Tools, process, what was changed or rejected, verification |
 | ☑ Submission checklist | `SUBMISSION.md` | This file |
-| ☑ Walkthrough video URL | [`WALKTHROUGH_URL.txt`](./WALKTHROUGH_URL.txt) | Placeholder until the video is recorded |
+| ☑ Walkthrough video URL | [`WALKTHROUGH_URL.txt`](./WALKTHROUGH_URL.txt) | Loom link to the recorded walkthrough |
 | ☑ Walkthrough script | [`WALKTHROUGH_SCRIPT.md`](./WALKTHROUGH_SCRIPT.md) | 3–5 minute recording script |
 | ☑ Environment template | [`.env.example`](./.env.example) | Every variable documented; no secrets |
 | ☑ Automated tests | `tests/` | 22 Vitest integration tests and helpers |
@@ -81,6 +82,7 @@ Real-time co-editing and presence, comments, version history, export, images, ta
 - Dashboard search filters the loaded list in the browser; there is no pagination.
 - Imported original files are not stored (metadata only).
 - There is no committed browser end-to-end (Playwright) suite; browser behavior was verified with scripted, agent-driven runs.
+- Malformed document IDs containing a null byte return `500` instead of `404` in production (found by the live API audit; no data exposure).
 
 ## Required environment configuration
 
@@ -104,11 +106,11 @@ Real-time co-editing and presence, comments, version history, export, images, ta
 | Production build | `npm run build` | ✅ succeeds |
 | API audit (local production build) | `npm run audit:api` | ✅ 108 / 108 |
 | Production dependency audit | `npm audit --omit=dev` | ✅ 0 vulnerabilities |
-| API audit against the live URL | `npm run audit:api -- <vercel-url>` | ✍️ ABDUL: run after deploying |
+| API audit against the live URL | `npm run audit:api -- https://papertail-wea4.vercel.app` | ⚠️ 107 / 108: a document ID containing a null byte (`/api/documents/%00`) returns `500` instead of `404` on Neon. Low severity: no data exposure; fix is to reject malformed IDs before querying. |
 
 ## Before submitting (checklist)
-- [ ] Deploy to Vercel with Neon (README → *Deploying*), and open the live URL as each demo account.
-- [ ] Run `npm run audit:api -- https://<your-app>.vercel.app` and record the result above.
-- [ ] Record the walkthrough ([`WALKTHROUGH_SCRIPT.md`](./WALKTHROUGH_SCRIPT.md)) and paste the URL into `WALKTHROUGH_URL.txt` and the Links table.
-- [ ] Fill the ✍️ ABDUL placeholders in `AI_WORKFLOW.md`.
-- [ ] Upload the project to Google Drive **without** `node_modules/`, `.next/`, `src/generated/`, and `.env`, then paste the folder link above.
+- [x] Deploy to Vercel with Neon (README → *Deploying*): live at https://papertail-wea4.vercel.app
+- [x] Run `npm run audit:api -- https://papertail-wea4.vercel.app` and record the result above (107 / 108).
+- [x] Record the walkthrough and add the URL to `WALKTHROUGH_URL.txt` and the Links table.
+- [x] Complete `AI_WORKFLOW.md` (tools, models, time, verification).
+- [ ] Upload the project to Google Drive **without** `node_modules/`, `.next/`, `src/generated/`, and `.env`, and share the folder link in the submission email.

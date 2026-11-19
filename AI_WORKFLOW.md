@@ -1,16 +1,13 @@
 # AI workflow
 
-How I (Abdul Raheem) used AI to plan, build, debug, and verify Papertrail, and where I kept the engineering judgment.
-
-> Placeholders marked **✍️ ABDUL** need details only I can provide. Everything else is drawn from the project's actual history.
+How I used AI to plan, build, debug, and verify Papertrail, and where I kept the engineering judgment.
 
 ## Tools
 
 | Tool | What I used it for |
 | --- | --- |
 | **GitHub Copilot (agent mode) in VS Code** | Planning, implementation, refactoring, and running the toolchain (install, migrate, lint, typecheck, test, build). Its integrated browser drove the running app for end-to-end checks and screenshots, and its web search and fetch checked current library documentation. |
-| **Model(s) used** | ✍️ ABDUL: the model(s) selected in Copilot during the project |
-| **Other AI tools** | ✍️ ABDUL: list any others (for example ChatGPT or Claude for brainstorming or prompt drafting), or delete this row |
+| **Models** | Claude Opus 5.5 for the agent's work (about 700 of 720 model calls); GPT-6 Luna for a small number of auxiliary calls |
 | **Manual testing** | My own click-through of the app with the three demo accounts |
 
 ## How I worked: role-based briefs, one phase at a time
@@ -26,7 +23,7 @@ Instead of asking for "a Google Docs clone" in one prompt, I split the work into
 | 5. QA | A "Principal QA Engineer / security tester" brief: be skeptical, reproduce before reporting, don't fake results | Independent audit: 0 critical/high issues, 3 medium and 8 low, all fixed after I approved them |
 | 6. Release | A "Release Manager" brief: clean up, document honestly, verify everything | This documentation, cleanup, screenshots, final verification |
 
-✍️ ABDUL: approximate total time spent (the brief allows 4–6 hours), and anything you'd do differently in how you prompted.
+**Time:** about 5 hours in a single working session, from first prompt to live deployment and walkthrough recording.
 
 ## Where AI helped
 
@@ -70,9 +67,9 @@ The agent diagnosed failures from real tool output, not guesses:
 | --- | --- |
 | Static | Strict TypeScript and ESLint (Next.js + React Compiler rules): 0 errors. A production `next build` passes. |
 | Integration | **22 Vitest tests** against real route handlers and a real Postgres: auth, permissions, conflicts, schema validation, every import rejection path, zip bombs |
-| Black-box API | `npm run audit:api`: **108/108** checks over HTTP as three users, covering cross-account access, role escalation, revocation, XSS payloads, malicious files, and concurrent saves |
+| Black-box API | `npm run audit:api`: **108/108** checks over HTTP as three users, covering cross-account access, role escalation, revocation, XSS payloads, malicious files, and concurrent saves. Against the live Vercel deployment: **107/108** (one low-severity finding, documented in [SUBMISSION.md](./SUBMISSION.md)) |
 | Browser | Agent-driven checks against the production build: formatting round-trips, autosave under offline, expired-session, and in-flight conditions, two-user conflicts, mid-session revocation and downgrade, long documents, and phone/tablet/desktop layouts |
-| Manual | ✍️ ABDUL: briefly describe your own testing (for example "signed in as each demo user, shared a document between accounts, imported each sample file") |
+| Manual | My own click-through of the app with the demo accounts (which is how I found the import dialog stuck on "Imported. Opening…"), and a final run-through of the main flows on the live deployment while recording the walkthrough |
 
 Every QA finding was **reproduced before it was fixed and re-tested afterwards**, and all results in this repository come from actual runs. Remaining gaps are stated honestly: there is no committed Playwright suite yet (see [SUBMISSION.md](./SUBMISSION.md)).
 
@@ -84,5 +81,3 @@ The AI drafted, proposed, and executed; the decisions below were mine:
 - **Stack:** rejecting the faster "keep v1" recommendation in favor of a rewrite on the stack I wanted to demonstrate.
 - **Risk:** approving the one destructive database command, and only for local data; authorizing the QA fixes ("fix all") only after reviewing the prioritized list.
 - **Quality bar:** requiring that every phase end with real verification, and that nothing be claimed without evidence.
-
-✍️ ABDUL: one or two sentences in your own words about what you learned, or what you'd tell a teammate about working this way.

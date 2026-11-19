@@ -18,7 +18,7 @@ A natural, speakable script for the 3–5 minute recording. Each section lists w
 **Show:** the sign-in page in Window A, before signing in.
 
 **Say:**
-> "Hi, I'm Abdul Raheem. For the Ajaia assessment I built **Papertrail**, a lightweight collaborative document editor. You can write and format documents, import Word or Markdown files, and share them with teammates as viewers or editors. It's deployed on Vercel with a Postgres database. Let me show you how it works, then how it's built."
+> "Hi, I'm Abdul Rahim. For the Ajaia assessment I built **Papertrail**, a lightweight collaborative document editor. You can write and format documents, import Word or Markdown files, and share them with teammates as viewers or editors. It's deployed on Vercel with a Postgres database. Let me show you how it works, then how it's built."
 
 ## 2. Product demonstration (0:20–2:50)
 
@@ -60,7 +60,7 @@ A natural, speakable script for the 3–5 minute recording. Each section lists w
 **Do (Window A):** in Share, change Sam to **Can edit**. **Do (Window B):** reload; the toolbar appears, so type a word.
 > "Permission changes apply on Sam's very next request. And this isn't just the UI hiding buttons: every API call is checked on the server."
 
-**Do (Window A):** as Alex, open `<your-url>/documents/research-notes`.
+**Do (Window A):** as Alex, open `https://papertail-wea4.vercel.app/documents/research-notes`.
 > "This is Sam's private document. Alex gets 'You can't open this document', a 404 with no data, so the URL doesn't even reveal that it exists."
 
 ## 3. Technical explanation (2:50–3:45)
@@ -79,7 +79,7 @@ A natural, speakable script for the 3–5 minute recording. Each section lists w
 ## 4. AI workflow (3:45–4:15)
 
 **Show:** `AI_WORKFLOW.md`, the phase table.
-> "I built this with **GitHub Copilot in agent mode** in VS Code. *(✍️ mention any other tools you used.)* I didn't ask for 'a Google Docs clone'. I worked in phases with a focused brief for each: engineering, then design, then an independent QA pass, then release prep. AI sped up scaffolding, tests, and debugging a lot, but I made the calls. For example, it recommended keeping my first Cloudflare version, and I chose to rewrite on this stack instead."
+> "I built this with **GitHub Copilot in agent mode** in VS Code, mostly running Claude Opus. I didn't ask for 'a Google Docs clone'. I worked in phases with a focused brief for each: engineering, then design, then an independent QA pass, then release prep. AI sped up scaffolding, tests, and debugging a lot, but I made the calls. For example, it recommended keeping my first Cloudflare version, and I chose to rewrite on this stack instead."
 
 > "Everything is verified, not assumed: 22 integration tests against a real database, a 108-check API audit that tries to break access control, and browser tests. QA found real bugs, like keystrokes lost after choosing a heading and a zip-bomb risk in Word imports. Each was reproduced, fixed, and re-tested."
 
