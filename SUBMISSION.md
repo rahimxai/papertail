@@ -31,7 +31,6 @@ Password for every account: **`papertrail-demo`**. The sign-in page also has one
 | ☑ AI workflow note | [`AI_WORKFLOW.md`](./AI_WORKFLOW.md) | Tools, process, what was changed or rejected, verification |
 | ☑ Submission checklist | `SUBMISSION.md` | This file |
 | ☑ Walkthrough video URL | [`WALKTHROUGH_URL.txt`](./WALKTHROUGH_URL.txt) | Loom link to the recorded walkthrough |
-| ☑ Walkthrough script | [`WALKTHROUGH_SCRIPT.md`](./WALKTHROUGH_SCRIPT.md) | 3–5 minute recording script |
 | ☑ Environment template | [`.env.example`](./.env.example) | Every variable documented; no secrets |
 | ☑ Automated tests | `tests/` | 22 Vitest integration tests and helpers |
 | ☑ API audit script | [`scripts/api-audit.mjs`](./scripts/api-audit.mjs) | `npm run audit:api [-- <url>]`, about 108 black-box checks |
