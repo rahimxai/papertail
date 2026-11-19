@@ -1,0 +1,92 @@
+generator client {
+  provider = "prisma-client"
+  output   = "../src/generated/prisma"
+}
+
+datasource db {
+  provider = "postgresql"
+}
+
+enum ShareRole {
+  VIEWER
+  EDITOR
+}
+
+model User {
+  id           String   @id @default(cuid())
+  email        String   @unique
+  name         String
+  passwordHash String
+  createdAt    DateTime @default(now())
+
+  ownedDocuments  Document[]      @relation("DocumentOwner")
+  editedDocuments Document[]      @relation("DocumentLastEditor")
+  shares          DocumentShare[]
+  sessions        Session[]
+  imports         FileImport[]
+}
+
+/// Server-side sessions. `id` is the SHA-256 of the cookie token, so a database leak can't be used to log in.
+model Session {
+  id        String   @id
+  userId    String
+  expiresAt DateTime
+  createdAt DateTime @default(now())
+
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@index([userId])
+}
+
+model Document {
+  id          String   @id @default(cuid())
+  title       String   @db.VarChar(120)
+  /// Tiptap/ProseMirror JSON, validated against the editor schema before every write.
+  content     Json
+  /// First ~160 characters of plain text, maintained on save so lists never load full documents.
+  excerpt     String   @default("") @db.VarChar(200)
+  /// Optimistic concurrency: a save must name the version it was based on (see documents service).
+  version     Int      @default(1)
+  ownerId     String
+  updatedById String?
+  createdAt   DateTime @default(now())
+  /// Set explicitly when content or title changes, not on sharing changes.
+  updatedAt   DateTime @default(now())
+
+  owner     User            @relation("DocumentOwner", fields: [ownerId], references: [id], onDelete: Cascade)
+  updatedBy User?           @relation("DocumentLastEditor", fields: [updatedById], references: [id], onDelete: SetNull)
+  shares    DocumentShare[]
+  imports   FileImport[]
+
+  @@index([ownerId, updatedAt(sort: Desc)])
+}
+
+model DocumentShare {
+  documentId String
+  userId     String
+  role       ShareRole
+  createdAt  DateTime  @default(now())
+  updatedAt  DateTime  @updatedAt
+
+  document Document @relation(fields: [documentId], references: [id], onDelete: Cascade)
+  user     User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@id([documentId, userId])
+  @@index([userId])
+}
+
+/// Metadata about the file a document was imported from. The file itself is converted, not stored.
+model FileImport {
+  id           String   @id @default(cuid())
+  documentId   String
+  importedById String
+  fileName     String   @db.VarChar(255)
+  mimeType     String   @db.VarChar(255)
+  sizeBytes    Int
+  createdAt    DateTime @default(now())
+
+  document   Document @relation(fields: [documentId], references: [id], onDelete: Cascade)
+  importedBy User     @relation(fields: [importedById], references: [id], onDelete: Cascade)
+
+  @@index([documentId])
+}
