@@ -9,7 +9,7 @@
 | Live application | [papertail-wea4.vercel.app](https://papertail-wea4.vercel.app) |
 | Source repository | [github.com/rahimxai/papertail](https://github.com/rahimxai/papertail) (private; access on request) |
 | Walkthrough video | [Loom walkthrough](https://www.loom.com/share/803399d5b5cd49568b211fad03b38eb9) (also in [`WALKTHROUGH_URL.txt`](./WALKTHROUGH_URL.txt)) |
-| Google Drive folder | Shared in the submission email (this file is included in that folder) |
+| Google Drive folder | [AJAIA Assessment folder](https://drive.google.com/drive/folders/1-XGB2jkDSvnbevXodly9Hg34TJJaDXai?usp=drive_link) |
 
 ## Demo credentials
 
@@ -113,4 +113,4 @@ Real-time co-editing and presence, comments, version history, export, images, ta
 - [x] Run `npm run audit:api -- https://papertail-wea4.vercel.app` and record the result above (107 / 108).
 - [x] Record the walkthrough and add the URL to `WALKTHROUGH_URL.txt` and the Links table.
 - [x] Complete `AI_WORKFLOW.md` (tools, models, time, verification).
-- [ ] Upload the project to Google Drive **without** `node_modules/`, `.next/`, `src/generated/`, and `.env`, and share the folder link in the submission email.
+- [x] Upload the project to Google Drive **without** `node_modules/`, `.next/`, `src/generated/`, and `.env` ([folder](https://drive.google.com/drive/folders/1-XGB2jkDSvnbevXodly9Hg34TJJaDXai?usp=drive_link)).

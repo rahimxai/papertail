@@ -10,6 +10,7 @@ Users sign in, write and format documents in a real rich-text editor, import Wor
 | --- | --- |
 | **Live demo** | [papertail-wea4.vercel.app](https://papertail-wea4.vercel.app) (password `papertrail-demo` for every demo account) |
 | **Walkthrough video** | [Loom](https://www.loom.com/share/803399d5b5cd49568b211fad03b38eb9) |
+| **Source and documents (Google Drive)** | [Drive folder](https://drive.google.com/drive/folders/1-XGB2jkDSvnbevXodly9Hg34TJJaDXai?usp=drive_link) |
 | **Architecture and tradeoffs** | [ARCHITECTURE.md](./ARCHITECTURE.md) |
 | **How AI was used** | [AI_WORKFLOW.md](./AI_WORKFLOW.md) |
 | **What's in the submission** | [SUBMISSION.md](./SUBMISSION.md) |
